@@ -6,7 +6,7 @@ import java.sql.DriverManager;
 public class Main {
     public static Connection getConnection() {
         try {
-
+//test
            // Class.forName("com.mysql.jdbc.Driver"); // MySQL database connection
             String url = "jdbc:mysql://localhost:3306";
             String databaseName = "Lab10";
