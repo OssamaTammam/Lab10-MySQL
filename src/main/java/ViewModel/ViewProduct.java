@@ -1,6 +1,6 @@
 package ViewModel;
 
-import View.productItem;
+import Model.productItem;
 
 import java.sql.ResultSet;
 import java.sql.Statement;
