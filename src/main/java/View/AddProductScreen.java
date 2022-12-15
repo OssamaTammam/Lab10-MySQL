@@ -4,6 +4,12 @@
  */
 package View;
 
+import Model.productItem;
+import ViewModel.AddProduct;
+
+import javax.swing.*;
+
+
 /**
  *
  * @author alfa
@@ -127,6 +133,23 @@ public class AddProductScreen extends javax.swing.JFrame {
 
     private void addBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addBtnActionPerformed
         // TODO add your handling code here:
+
+        String productName = productNameTextField.getText();
+        String cost = costTextField.getText();
+        String quantity = quantityTextField.getText();
+        productItem p = new productItem(productName, Double.parseDouble(cost), Integer.parseInt(quantity));
+
+        boolean result = AddProduct.validateThenAdd(p);
+        if(result)
+        {
+            JOptionPane.showMessageDialog(null, "Product Added Successfully");
+        }
+        else
+        {
+            JOptionPane.showMessageDialog(null, "Product Not Added");
+        }
+
+
     }//GEN-LAST:event_addBtnActionPerformed
 
     /**
