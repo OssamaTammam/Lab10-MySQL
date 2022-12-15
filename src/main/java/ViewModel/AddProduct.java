@@ -25,14 +25,12 @@ public class AddProduct extends ViewModel.Connection {
         }
     }
 
-    public static int validateThenAdd(productItem product) {
-        if (product.getProductName().equals("") || product.getCost() == 0 || product.getQuantity() == 0) {
-            return -1; //-1 means some fields are empty
-        } else if (product.getCost() <= 0 || product.getQuantity() < 0) {
-            return -2; //-2 means some fields are negative or zero
+    public static boolean validateThenAdd(productItem product) {
+        if (product.getCost() <= 0 || product.getQuantity() < 0) {
+            return false; //Some fields are negative or zero
         } else {
             addProduct(product);
-            return 1; //1 means product added successfully
+            return true; //Product added successfully
         }
     }
 }
