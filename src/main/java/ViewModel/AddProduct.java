@@ -2,7 +2,6 @@ package ViewModel;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-
 import Model.productItem;
 
 public class AddProduct extends ViewModel.Connection {
