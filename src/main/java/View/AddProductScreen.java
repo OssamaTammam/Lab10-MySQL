@@ -6,27 +6,28 @@ package View;
 
 import Model.productItem;
 import ViewModel.AddProduct;
-
 import javax.swing.*;
 
 
 /**
- *
  * @author alfa
  */
-public class AddProductScreen extends javax.swing.JFrame {
+public class AddProductScreen extends javax.swing.JFrame implements Node {
 
     /**
      * Creates new form AddProductScreen
      */
-    
-    
+
+    private Node parent;
+
     public AddProductScreen() {
         initComponents();
         this.setSize(850, 700);
         this.setLocationRelativeTo(null);
+        this.setParentNode(null);
+        this.setTitle("Add Product");
     }
-    
+
     public static boolean isNumeric(String str) {
         try {
             Integer.parseInt(str);
@@ -55,7 +56,12 @@ public class AddProductScreen extends javax.swing.JFrame {
         addBtn = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
 
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -71,7 +77,7 @@ public class AddProductScreen extends javax.swing.JFrame {
         });
         jPanel1.add(productNameTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 100, 171, 33));
 
-        costTextField.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        costTextField.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jPanel1.add(costTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 170, 171, 33));
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
@@ -100,24 +106,24 @@ public class AddProductScreen extends javax.swing.JFrame {
         });
         jPanel1.add(addBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(152, 366, 182, 47));
 
-        jLabel5.setIcon(new javax.swing.ImageIcon("C:\\Users\\alfa\\Desktop\\lkkllk.jpg")); // NOI18N
+        jLabel5.setIcon(new javax.swing.ImageIcon("resources\\background.jpg")); // NOI18N
         jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -20, 540, 550));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(189, 189, 189)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(2393, Short.MAX_VALUE))
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                                .addGap(189, 189, 189)
+                                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addContainerGap(2393, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(75, 75, 75)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(1961, Short.MAX_VALUE))
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                                .addGap(75, 75, 75)
+                                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addContainerGap(1961, Short.MAX_VALUE))
         );
 
         pack();
@@ -140,17 +146,19 @@ public class AddProductScreen extends javax.swing.JFrame {
         productItem p = new productItem(productName, Double.parseDouble(cost), Integer.parseInt(quantity));
 
         boolean result = AddProduct.validateThenAdd(p);
-        if(result)
-        {
+        if (result) {
             JOptionPane.showMessageDialog(null, "Product Added Successfully");
-        }
-        else
-        {
+        } else {
             JOptionPane.showMessageDialog(null, "Product Not Added");
         }
+        formWindowClosing(null);
+        ((ViewProductScreen) getParentNode()).refreshData();
+    }
 
-
-    }//GEN-LAST:event_addBtnActionPerformed
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {
+        this.setVisible(false);
+        ((JFrame) getParentNode()).setVisible(true);
+    }
 
     /**
      * @param args the command line arguments
@@ -159,7 +167,7 @@ public class AddProductScreen extends javax.swing.JFrame {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
@@ -197,5 +205,15 @@ public class AddProductScreen extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JTextField productNameTextField;
     private javax.swing.JTextField quantityTextField;
+
+    @Override
+    public void setParentNode(Node parent) {
+        this.parent = parent;
+    }
+
+    @Override
+    public Node getParentNode() {
+        return parent;
+    }
     // End of variables declaration//GEN-END:variables
 }

@@ -11,7 +11,7 @@ public class AddProduct extends ViewModel.Connection {
         Connection connect = getConnection();
         try {
 
-            String sql = "INSERT INTO `products`(`ID`, `Product Name`, `Cost`, `Quantity`) VALUES (null,?,?,?)";
+            String sql = "INSERT INTO `products`(`ID`, `Product_Name`, `Cost`, `Quantity`) VALUES (null,?,?,?)";
             assert connect != null;
             PreparedStatement statement = connect.prepareStatement(sql);
             statement.setString(1, product.getProductName());
